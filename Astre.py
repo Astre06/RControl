@@ -41,7 +41,6 @@ def extract_rar_with_password(repo_path, password, extract_to):
         raise RuntimeError(f"Extraction failed: {result.stderr}")
 
 def run_main_script(extract_root):
-    # Detect folder inside extract_root (your archive extracts to a folder)
     entries = [e for e in os.listdir(extract_root) if os.path.isdir(os.path.join(extract_root, e))]
     if not entries:
         raise RuntimeError("No directory found inside extracted folder")
@@ -60,8 +59,8 @@ def loader():
         print("Waiting for password via Telegram bot...")
         while password_storage["password"] is None:
             time.sleep(3)
-        extract_dir = os.path.join(repo_path, "extracted")
-        os.makedirs(extract_dir, exist_ok=True)
+        # Create a unique temporary directory for extraction
+        extract_dir = tempfile.mkdtemp(prefix="extracted_")
         extract_rar_with_password(repo_path, password_storage["password"], extract_dir)
         run_main_script(extract_dir)
     finally:
@@ -73,5 +72,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
