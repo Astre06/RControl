@@ -6,7 +6,7 @@ import telebot
 import threading
 import time
 
-BOT_TOKEN = "8383780670:AAG1cQD7jTQVFrw5LeyP83l4YvPwmUw6SfEs"
+BOT_TOKEN = 8383780670:AAGOvwy7ItP-cdF8-suLkNL3jpXsrugJbH8"
 REPO_URL = "https://github.com/Astre06/RavTest.git"
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -73,3 +73,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
