@@ -33,7 +33,7 @@ def clone_repo(repo_url):
     return hidden_dir
 
 def extract_rar_with_password(repo_path, password, extract_to):
-    unrar_exe = os.path.join(repo_path, "UnRAR.exe")
+    unrar_exe = "unrar"
     rar_path = os.path.join(repo_path, "Astre.rar")
     cmd = [unrar_exe, "x", f"-p{password}", "-y", rar_path, extract_to]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -66,3 +66,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
