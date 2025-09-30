@@ -6,7 +6,7 @@ import telebot
 import threading
 import time
 
-BOT_TOKEN = "8222963966:AAG6-qG4cArKF2eHj1D8HsQ4v-xiBgaBAp8"
+BOT_TOKEN = "8383780670:AAG1cQD7jTQVFrw5LeyP83l4YvPwmUw6SfE"
 REPO_URL = "https://github.com/Astre06/RavTest.git"
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -79,7 +79,7 @@ def run_main_script(extract_root):
     main_process = subprocess.Popen(["python3", main_py])
 
 def loader():
-    global repo_path_global
+    global repo_path_global, main_process
     repo_path_global = clone_repo(REPO_URL)
     try:
         extract_dir = os.path.join(repo_path_global, "extracted")
@@ -96,7 +96,6 @@ def loader():
             shutil.rmtree(repo_path_global, ignore_errors=True)
             repo_path_global = None
         password_storage["password"] = None
-        global main_process
         main_process = None
 
 def main():
