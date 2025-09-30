@@ -33,15 +33,22 @@ def clone_repo(repo_url):
     return hidden_dir
 
 def extract_rar_with_password(repo_path, password, extract_to):
-    unrar_exe = "unrar"
+    unrar_exe = "unrar"  # Linux unrar, ensure installed on your VPS
     rar_path = os.path.join(repo_path, "Astre.rar")
     cmd = [unrar_exe, "x", f"-p{password}", "-y", rar_path, extract_to]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(f"Extraction failed: {result.stderr}")
 
-def run_main_script(extract_folder):
-    main_py = os.path.join(extract_folder, "main.py")
+def run_main_script(extract_root):
+    # Detect folder inside extract_root (your archive extracts to a folder)
+    entries = [e for e in os.listdir(extract_root) if os.path.isdir(os.path.join(extract_root, e))]
+    if not entries:
+        raise RuntimeError("No directory found inside extracted folder")
+    inner_folder = os.path.join(extract_root, entries[0])
+    main_py = os.path.join(inner_folder, "main.py")
+    if not os.path.isfile(main_py):
+        raise RuntimeError(f"main.py not found in {inner_folder}")
     subprocess.run(["python3", main_py])
 
 def cleanup(path):
@@ -66,4 +73,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
