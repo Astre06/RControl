@@ -1,3 +1,7 @@
-python-telegram-bot==20.3
-requests==2.31.0
-rarfile==4.0
+requests
+pyTelegramBotAPI
+python-telegram-bot==20.0
+fake-useragent
+pycountry
+PySocks
+certifi
